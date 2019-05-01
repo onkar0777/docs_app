@@ -1,0 +1,16 @@
+include ./index.pug
+
+if req_id
+  p Successfully Created your Request with id&nbsp;
+    span= req_id
+else if error
+    p.text-danger= error
+else
+  form(method='POST' action='/create_request')
+            div.form-group.w-50
+              label(for='customer') Customer Id:
+              input#customer.form-control(type='text', placeholder='Input Customer Id' name='customer')
+            button.btn.btn-primary(type='submit') Ride Now
+
+
+script(src="js/customer.js")

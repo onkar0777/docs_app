@@ -1,14 +1,15 @@
 global.__BASE__ = __dirname + "/";
 
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var CONFIG = require("./config/global");
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const CONFIG = require("./config/global");
 
-var API_index = require("./api/index");
-var API_request = require("./api/request");
+const VIEW_ROUTES = require("./view-routes");
+const API_index = require("./api/index");
+const API_request = require("./api/request");
 
-var app = express();
+const app = express();
 
 mongoose.connect(
   `mongodb://${CONFIG.DB_URL}`, {
@@ -30,15 +31,10 @@ app.use(bodyParser.urlencoded());
 app.use(express.static("./public"));
 app.set("view engine", "pug");
 
-app.get("/", function (req, res) {
-  res.render("index", {
-    title: "Hey",
-    message: "Hello there!"
-  });
-});
-
 app.use("/api", API_index);
 app.use("/api/request", API_request);
+
+app.use("/", VIEW_ROUTES);
 
 app.listen(CONFIG.PORT, function () {
   console.log("Server listening on port " + CONFIG.PORT);

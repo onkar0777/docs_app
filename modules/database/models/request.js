@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var REQUEST_STATUS = require(__BASE__ + "config/enums").REQUEST_STATUS;
+const mongoose = require("mongoose");
+const REQUEST_STATUS = require(__BASE__ + "config/enums").REQUEST_STATUS;
 
-var RequestSchema = new mongoose.Schema({
+const RequestSchema = new mongoose.Schema({
   //_id: Object,
 
   customer: { // Id of the customer who created the request
@@ -16,7 +16,7 @@ var RequestSchema = new mongoose.Schema({
     type: String,
     enum: [
       REQUEST_STATUS.WAITING,
-      REQUEST_STATUS.IN_PROGRESS,
+      REQUEST_STATUS.ONGOING,
       REQUEST_STATUS.COMPLETE
     ],
     required: true

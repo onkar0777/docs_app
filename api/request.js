@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
       status: "Failed to get",
       message: e.message,
     })
-  });;
+  });
 });
 
 // Default route to create a request. Need customer id as a mandatory param
