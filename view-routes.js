@@ -57,8 +57,8 @@ router.get("/customer", function (req, res) {
     });
 });
 
-router.get("/driver", function (req, res) {
-    requestController.getRequestsForDriver().then(requests => {
+router.get("/driver/:id", function (req, res) {
+    requestController.getRequestsForDriver(req.params.id).then(requests => {
         console.log(requests);
         res.render("driver", {
             title: "Driver App",

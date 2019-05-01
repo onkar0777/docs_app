@@ -1,25 +1,33 @@
 include ./index.pug
 
-h2 Waiting
-ul
-  each val in waiting_requests
-    li
-      p= val.customer
-      p= val.status
-      p= val.created_at
+div.d-flex
+  div
+    h2 Waiting
+    each val in waiting_requests
+      .card.p-1.mb-1
+        .card-body
+        .card-title
+          span ReqId: #{val._id}
+          span CustId: #{val.customer}
+        p.card-text= val.created_at
+        button.btn.btn-primary( onclick="selectRequest('" + val._id + "', '" + val.customer + "')") Select
 
-h2 Ongoing
-ul
-  each val in ongoing_requests
-    li
-      p= val.customer
-      p= val.status
-      p= val.created_at
+  div
+    h2 Ongoing
+    ul
+      each val in ongoing_requests
+        li
+          p= val.customer
+          p= val.status
+          p= val.created_at
 
-h2 Complete
-ul
-  each val in complete_requests
-    li
-      p= val.customer
-      p= val.status
-      p= val.created_at
+  div
+    h2 Complete
+    ul
+      each val in complete_requests
+        li
+          p= val.customer
+          p= val.status
+          p= val.created_at
+
+script(src="/js/driver.js")

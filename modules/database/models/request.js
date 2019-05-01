@@ -6,8 +6,7 @@ const RequestSchema = new mongoose.Schema({
 
   customer: { // Id of the customer who created the request
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   driver: String, // Id of the driver who accepted the request
 
