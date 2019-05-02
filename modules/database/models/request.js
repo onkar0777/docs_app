@@ -34,6 +34,10 @@ const RequestSchema = new mongoose.Schema({
   // timestamp for accepting of request
   accepted_at: {
     type: Date,
+  },
+  // timestamp for Completiom of request
+  completed_at: {
+    type: Date,
   }
 }, {
   minimize: false

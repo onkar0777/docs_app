@@ -16,13 +16,17 @@ router.get("/", (req, res) => {
 
 // Default route to create a request. Need customer id as a mandatory param
 router.post("/", (req, res) => {
-  console.log(req.body);
   if (req.body.customer) {
     requestController.createRequest(req.body).then(x => {
-        res.json(x);
+        res.json({
+          success: true,
+          data: x,
+          message: `Created Req Successfully for customer ${req.body.customer}`
+        });
       })
       .catch(e => {
         res.json({
+          success: false,
           message: `Failed to create. ${e.message}`,
         })
       });
@@ -33,9 +37,10 @@ router.post("/", (req, res) => {
   }
 });
 
+// api to select/accept a request by driver. Needs driver and request as body params.
+// returns this map - {success: boolean, message: string if failed, data: if successful}
 router.post("/select_request", (req, res) => {
-  console.log(req.body);
-  if (req.body.reqId && req.body.driver) {
+  if (req.body.reqId && req.body.driver && req.body.driver <= 5) {
     requestController.selectRequestByDriver(req.body.reqId, req.body.driver).then(x => {
         if (x === 'R_NA') {
           res.json({
@@ -56,19 +61,26 @@ router.post("/select_request", (req, res) => {
       })
       .catch(e => {
         res.json({
+          success: false,
           message: `Failed to update. ${e.message}`,
         })
       });
   } else {
     res.json({
+      success: false,
       message: "Invalid Inputs"
     });
   }
 });
 
+// api to get all driver requests. Needs driver as query param.
+// returns {
+//   waiting_requests: [],
+//   ongoing_requests: [],
+//   complete_requests: []
+// }
 router.get("/driver_requests", (req, res) => {
-  console.log(req.query);
-  if (req.query.driver) {
+  if (req.query.driver && req.query.driver <= 5) {
     requestController.getRequestsForDriver(req.query.driver).then(requests => {
       res.json(requests);
     }).catch(e => {

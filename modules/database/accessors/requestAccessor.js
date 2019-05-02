@@ -1,9 +1,10 @@
+// Db accessor for Requests Model. All db operations for request should be done here
 var Request = require(__BASE__ + "modules/database/models/request");
 var Promise = require("bluebird");
 var REQUEST_STATUS = require(__BASE__ + "config/enums").REQUEST_STATUS;
 
-
-var getCreateTemplate = function (parameters) {
+// Returns a default template depending on parameters for request creation
+const getCreateTemplate = function (parameters) {
   var template = {};
   for (var key in parameters) {
     switch (key) {
@@ -18,13 +19,13 @@ var getCreateTemplate = function (parameters) {
   return template;
 };
 
+// get requests from db
 const getRequests = function (rule, fields, options) {
   return new Promise(function (resolve, reject) {
     Request.find(rule, fields, options)
       .lean()
       .exec(function (err, data) {
         if (!err) {
-          console.log(data);
           resolve(data);
         } else {
           console.error("GetRequests", err, rule);
@@ -34,6 +35,7 @@ const getRequests = function (rule, fields, options) {
   });
 };
 
+// create request in db
 const createRequest = function (parameters) {
   return new Promise(function (resolve, reject) {
     var template = getCreateTemplate(parameters);
@@ -49,6 +51,7 @@ const createRequest = function (parameters) {
   });
 };
 
+// update single entries in db according to the rule passed. updates are provided in template
 const updateRequest = function (rule, template) {
   return new Promise(function (resolve, reject) {
     Request.findOneAndUpdate(rule, {
@@ -62,13 +65,14 @@ const updateRequest = function (rule, template) {
       if (!err) {
         resolve(data);
       } else {
-        console.error("updateUser", err, rule, template);
+        console.error("updateRequest", err, rule, template);
         reject(err);
       }
     });
   });
 };
 
+// update multiple entries in db according to the rule passed. updates are provided in template
 const updateManyRequests = function (rule, template) {
   return new Promise(function (resolve, reject) {
     Request.updateMany(rule, {
@@ -81,7 +85,7 @@ const updateManyRequests = function (rule, template) {
       if (!err) {
         resolve(data);
       } else {
-        console.error("updateUser", err, rule, template);
+        console.error("updateManyRequests", err, rule, template);
         reject(err);
       }
     });
