@@ -11,3 +11,8 @@ Created using express.
 Build the static ui files from the Angular project (or any other if you like). Place the output folder named `docsAppUi` inside the root folder. Deploy on any choice of server
 
 [Deployed here for reference](http://docsapp.classroomapp.in)
+
+
+1. [Driver App](http://docsapp.classroomapp.in/driver/1)
+2. [Customer App](http://docsapp.classroomapp.in/customer)
+3. [Dashboard](http://docsapp.classroomapp.in/dashboard)
